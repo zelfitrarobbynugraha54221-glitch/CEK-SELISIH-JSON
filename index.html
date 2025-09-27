@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cek Selisih & Duplikat Data JSON</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🔍 Cek Selisih & Duplikat Data JSON</h1>
+    <p id="subtitle">Bandingkan data Tabel A dan B berdasarkan field pilihan</p>
+    <button id="darkToggle">🌙 Dark Mode</button>
+  </header>
+
+  <div class="container">
+    <!-- Menu Section -->
+    <div class="menu-grid" id="mainMenu">
+      <a href="#selisih" class="menu-card">
+        <h3>🔍 Cek Selisih Barang</h3>
+        <p>Temukan selisih barang antara table A dan B.</p>
+      </a>
+
+      <a href="#duplikat" class="menu-card">
+        <h3>♻️ Cek Duplikat Data</h3>
+        <p>Temukan data duplikat (single / antar tabel).</p>
+      </a>
+
+      <a href="#stok" class="menu-card">
+        <h3>📦 Cek Stok Barang</h3>
+        <p>Cek stok 0 atau stok tidak sesuai antar tabel.</p>
+      </a>
+
+      <a href="#keuangan" class="menu-card">
+        <h3>💰 Cek Selisih Keuangan</h3>
+        <p>Bandingkan faktur & jumlah antar tabel keuangan.</p>
+      </a>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result" class="card result">
+      <p id="defaultMsg"><i>Pilih salah satu menu di atas...</i></p>
+
+      <!-- Selisih -->
+      <div class="tab-content" data-tab="selisih">
+        <button class="backBtn">⬅ Kembali ke Menu Utama</button>
+        <h2>🔍 Cek Selisih Barang</h2>
+
+        <!-- Upload Tabel A -->
+        <div class="upload-section upload-A">
+          <label><b>Tabel A:</b></label>
+          <div class="file-group">
+            <label for="fileA_selisih" class="custom-file">Pilih File</label>
+            <input type="file" id="fileA_selisih" accept="application/json" hidden>
+            <span id="fileAName_selisih" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldA_selisih">Gunakan field:</label>
+            <select id="fieldA_selisih"></select>
+          </div>
+        </div>
+
+        <!-- Upload Tabel B -->
+        <div class="upload-section upload-B">
+          <label><b>Tabel B:</b></label>
+          <div class="file-group">
+            <label for="fileB_selisih" class="custom-file">Pilih File</label>
+            <input type="file" id="fileB_selisih" accept="application/json" hidden>
+            <span id="fileBName_selisih" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldB_selisih">Gunakan field:</label>
+            <select id="fieldB_selisih"></select>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="resetBtn_selisih" class="resetBtn">🔄 Reset</button>
+          <button id="downloadBtn_selisih" disabled>⬇ Download Hasil (CSV)</button>
+        </div>
+
+        <div class="result-content"></div>
+      </div>
+
+      <!-- Duplikat -->
+      <div class="tab-content" data-tab="duplikat">
+        <button class="backBtn">⬅ Kembali ke Menu Utama</button>
+        <h2>♻️ Cek Duplikat Data</h2>
+
+        <div class="mode-select">
+          <label><input type="radio" name="duplikatMode" value="single" checked> Satu Tabel</label>
+          <label><input type="radio" name="duplikatMode" value="double"> Dua Tabel (A vs B)</label>
+        </div>
+
+        <!-- Upload Tabel A -->
+        <div class="upload-section upload-A">
+          <label><b>Tabel A:</b></label>
+          <div class="file-group">
+            <label for="fileA_duplikat" class="custom-file">Pilih File</label>
+            <input type="file" id="fileA_duplikat" accept="application/json" hidden>
+            <span id="fileAName_duplikat" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldA_duplikat">Gunakan field:</label>
+            <select id="fieldA_duplikat"></select>
+          </div>
+        </div>
+
+        <!-- Upload Tabel B -->
+        <div class="upload-section upload-B">
+          <label><b>Tabel B:</b></label>
+          <div class="file-group">
+            <label for="fileB_duplikat" class="custom-file">Pilih File</label>
+            <input type="file" id="fileB_duplikat" accept="application/json" hidden>
+            <span id="fileBName_duplikat" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldB_duplikat">Gunakan field:</label>
+            <select id="fieldB_duplikat"></select>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="resetBtn_duplikat" class="resetBtn">🔄 Reset</button>
+          <button id="downloadBtn_duplikat" disabled>⬇ Download Hasil (CSV)</button>
+        </div>
+
+        <div class="result-content"></div>
+      </div>
+
+      <!-- Stok -->
+      <div class="tab-content" data-tab="stok">
+        <button class="backBtn">⬅ Kembali ke Menu Utama</button>
+        <h2>📦 Cek Stok Barang</h2>
+
+        <!-- Upload Tabel A -->
+        <div class="upload-section upload-A">
+          <label><b>Tabel A:</b></label>
+          <div class="file-group">
+            <label for="fileA_stok" class="custom-file">Pilih File</label>
+            <input type="file" id="fileA_stok" accept="application/json" hidden>
+            <span id="fileAName_stok" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldA_stok">Gunakan field:</label>
+            <select id="fieldA_stok"></select>
+          </div>
+        </div>
+
+        <!-- Upload Tabel B -->
+        <div class="upload-section upload-B">
+          <label><b>Tabel B:</b></label>
+          <div class="file-group">
+            <label for="fileB_stok" class="custom-file">Pilih File</label>
+            <input type="file" id="fileB_stok" accept="application/json" hidden>
+            <span id="fileBName_stok" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldB_stok">Gunakan field:</label>
+            <select id="fieldB_stok"></select>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="resetBtn_stok" class="resetBtn">🔄 Reset</button>
+          <button id="downloadBtn_stok" disabled>⬇ Download Hasil (CSV)</button>
+        </div>
+
+        <div class="result-content"></div>
+      </div>
+
+      <!-- Cek Selisih Keuangan -->
+      <div class="tab-content" data-tab="keuangan">
+        <button class="backBtn">⬅ Kembali ke Menu Utama</button>
+        <h2>💰 Cek Selisih Keuangan</h2>
+
+        <!-- Upload Tabel A -->
+        <div class="upload-section upload-A">
+          <label><b>Tabel A:</b></label>
+          <div class="file-group">
+            <label for="fileA_keuangan" class="custom-file">Pilih File</label>
+            <input type="file" id="fileA_keuangan" accept="application/json" hidden>
+            <span id="fileAName_keuangan" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldA_keuangan">Gunakan field:</label>
+            <select id="fieldA_keuangan"></select>
+          </div>
+        </div>
+
+        <!-- Upload Tabel B -->
+        <div class="upload-section upload-B">
+          <label><b>Tabel B:</b></label>
+          <div class="file-group">
+            <label for="fileB_keuangan" class="custom-file">Pilih File</label>
+            <input type="file" id="fileB_keuangan" accept="application/json" hidden>
+            <span id="fileBName_keuangan" class="filename">Belum ada file</span>
+          </div>
+          <div class="field-select">
+            <label for="fieldB_keuangan">Gunakan field:</label>
+            <select id="fieldB_keuangan"></select>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="resetBtn_keuangan" class="resetBtn">🔄 Reset</button>
+          <button id="downloadBtn_keuangan" disabled>⬇ Download Hasil (CSV)</button>
+        </div>
+
+        <div class="result-content"></div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>© 2025 Bank Tools | RB • 
+      <!-- <a href="#" target="_blank">GitHub</a> |  -->
+      <!-- <a href="#" target="_blank">LinkedIn</a> |  -->
+      <!-- <a href="#" target="_blank">Twitter</a> -->
+    </p>
+    <p class="tip">💡 Tip: Pastikan JSON Anda valid sebelum upload agar hasil akurat!</p>
+    <button id="scrollTopBtn">⬆ Kembali ke Atas</button>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
