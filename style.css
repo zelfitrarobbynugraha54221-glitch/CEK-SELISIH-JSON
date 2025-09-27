@@ -1,0 +1,363 @@
+:root{
+  --bg:#eef2f7; --text:#2c3e50; --card:#fff;
+  --accent:#3498db; --accent-dark:#2980b9;
+  --table-header:#3498db; --table-text:#fff;
+}
+body.dark{
+  --bg:#1e1e2f; --text:#e0e0e0; --card:#2c2c3c;
+  --accent:#9b59b6; --accent-dark:#8e44ad;
+  --table-header:#9b59b6; --table-text:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+  background:var(--bg); color:var(--text); transition:.3s;
+}
+header{
+  position:relative; text-align:center; color:#fff;
+  padding:20px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+#darkToggle{
+  position:absolute; top:20px; right:20px;
+  padding:8px 12px; background:var(--card); color:var(--text);
+  border:1px solid #ccc; border-radius:8px; cursor:pointer;
+}
+.container{max-width:1000px; margin:30px auto; padding:20px}
+.card{
+  background:var(--card); border-radius:12px; padding:20px; margin-bottom:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1); 
+}
+h2{margin:0 0 12px}
+
+/* Upload Section */
+.upload-section {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:15px;
+  flex-wrap:wrap;
+}
+.file-group {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.custom-file {
+  display:inline-block;
+  padding:10px 15px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.custom-file:hover { background:var(--accent-dark); }
+.filename {
+  font-size:14px;
+  color:var(--text);
+  font-style:italic;
+  white-space:nowrap;
+  overflow-x:auto;
+  max-width:300px;
+}
+
+/* Buttons */
+button{
+  padding:10px 15px; border-radius:8px; border:0; cursor:pointer;
+  background:var(--accent); color:#fff; transition:.25s;
+}
+button:hover{background:var(--accent-dark)}
+button:disabled{opacity:.5; cursor:not-allowed}
+.backBtn {
+  margin-bottom: 15px;
+  background: #e74c3c;
+}
+.backBtn:hover {
+  background: #c0392b;
+}
+
+/* Table */
+table{
+  width:100%; border-collapse:collapse; margin-top:12px;
+}
+th,td{border:1px solid #ddd; padding:10px; text-align:left}
+th{background:var(--table-header); color:var(--table-text)}
+tr:nth-child(even){background:rgba(0,0,0,.03)}
+
+/* Result sections */
+.result-section {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.result-section h3 {
+  margin: 0 0 10px;
+  font-size: 1.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+.result-section .badge { margin-left: auto; }
+
+/* Menu Cards */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+.menu-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.menu-card:hover {
+  transform: translateY(-5px);
+  background: rgba(0,0,0,0.03);
+}
+.menu-card h3 { margin: 0 0 8px; }
+
+/* Animasi masuk */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tab-content { display: none; opacity: 0; }
+.tab-content.active {
+  display: block !important;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.resetBtn {
+  background: #95a5a6;
+  margin-left: 10px;
+}
+.resetBtn:hover {
+  background: #7f8c8d;
+}
+
+/* Tombol reset dan download csv supaya dibawah */
+.action-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between; /* kiri & kanan */
+  align-items: center;
+}
+
+.action-buttons button {
+  min-width: 160px;   /* biar ukurannya konsisten */
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+/* 🔹 Responsif: jika layar sempit (<600px) tombol jadi vertikal */
+@media (max-width: 600px) {
+  .action-buttons {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .action-buttons button {
+    width: 100%;  /* biar tombol full lebar */
+    max-width: 250px;
+  }
+}
+
+/* MODE SINGLE TABLE */
+.mode-select {
+  margin: 10px 0 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.mode-select label {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.fileB_duplikat_label,
+.fileB_duplikat_group {
+  display: block;
+}
+
+/* kalau mode single → file B disembunyikan via JS */
+.single-mode .fileB_duplikat_label,
+.single-mode .fileB_duplikat_group {
+  display: none;
+}
+
+
+/* Dropdown field */
+.field-select {
+  margin: 5px 0 15px;
+}
+
+.field-select label {
+  font-size: 13px;
+  margin-right: 5px;
+  font-weight: 500;
+}
+
+.mode-select {
+  margin: 10px 0 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.mode-select label {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.single-mode .fileB_duplikat_label,
+.single-mode .fileB_duplikat_group {
+  display: none;
+}
+
+/* 🔹 Upload Vertikal Tabel A & B */
+.upload-section {
+  display: flex;
+  flex-direction: column; /* atas-bawah */
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.upload-section.upload-A,
+.upload-section.upload-B {
+  background: var(--card);
+  padding: 12px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.upload-section.upload-B {
+  margin-top: 10px;
+}
+
+.file-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filename {
+  font-size: 13px;
+  color: var(--text);
+  font-style: italic;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.custom-file {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  transition: 0.25s;
+}
+
+.custom-file:hover {
+  background: var(--accent-dark);
+}
+
+/* Responsive untuk layar sempit (<500px) */
+@media (max-width: 500px) {
+  .upload-section.upload-A,
+  .upload-section.upload-B {
+    padding: 10px;
+  }
+
+  .file-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .custom-file {
+    width: 100%;
+    text-align: center;
+  }
+
+  .filename {
+    max-width: 100%;
+    word-break: break-all;
+  }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  font-size: 14px;
+  margin-top: 30px;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+  margin: 0 5px;
+}
+
+footer .tip {
+  font-size: 13px;
+  margin-top: 5px;
+  font-style: italic;
+  display: block;
+}
+
+#scrollTopBtn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#scrollTopBtn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Responsif */
+@media (max-width: 600px){
+  footer {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  #scrollTopBtn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Sembunyikan dropdown field di menu selisih */
+.tab-content[data-tab="selisih"] .field-select {
+  display: none;
+}
+
+/* Sembunyikan dropdown field di menu cek stock */
+.tab-content[data-tab="stok"] .field-select {
+  display: none;
+}
+
